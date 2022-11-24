@@ -1,7 +1,13 @@
 package org.example;
 
+
+import app.Application;
+import io.github.humbleui.jwm.App;
+
 public class Main {
+
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        App.start(Application::new);
     }
+
 }
