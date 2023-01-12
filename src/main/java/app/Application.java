@@ -41,12 +41,16 @@ public class Application implements Consumer<Event> {
      * Конструктор окна приложения
      */
     public Application() {
+        Label label1;
 
         // создаём окно
         window = App.makeWindow();
+        // создаём первый заголовок
+        label = new Label(window, true, PANEL_BACKGROUND_COLOR, PANEL_PADDING,
+                "Привет, мир!", true, true);
         // задаём обработчиком событий текущий объект
         window.setEventListener(this);
-        label = new Label(window, true, PANEL_BACKGROUND_COLOR, PANEL_PADDING, "Привет, мир!");
+        // создаём первый заголовок
         window.setTitle("Java 2D");
         // задаём размер окна
         window.setWindowSize(900, 900);
