@@ -14,6 +14,7 @@ import java.util.function.Consumer;
 import static app.Colors.APP_BACKGROUND_COLOR;
 
 
+
 /**
  * Класс окна приложения
  */
@@ -22,11 +23,15 @@ public class Application implements Consumer<Event> {
      * окно приложения
      */
     private final Window window;
-
+    /**
+     * радиус скругления элементов
+     */
+    public static final int C_RAD_IN_PX = 4;
     /**
      * Конструктор окна приложения
      */
     public Application() {
+
         // создаём окно
         window = App.makeWindow();
         // задаём обработчиком событий текущий объект
