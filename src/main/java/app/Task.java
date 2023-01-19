@@ -50,7 +50,7 @@ public class Task {
         this.ownCS = ownCS;
         this.points = points;
     }
-    / /**
+     /**
      * Клик мыши по пространству задачи
      *
      * @param pos         положение мыши
