@@ -34,6 +34,10 @@ public class Application implements Consumer<Event> {
      */
     public static final int PANEL_PADDING = 5;
     /**
+     * Представление проблемы
+     */
+    public static Task task;
+    /**
      * Первый заголовок
      */
     private final Label label;
