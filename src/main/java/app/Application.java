@@ -9,6 +9,11 @@ import io.github.humbleui.skija.RRect;
 import io.github.humbleui.skija.Surface;
 import misc.CoordinateSystem2i;
 import misc.Misc;
+import panels.PanelControl;
+import panels.PanelHelp;
+import panels.PanelLog;
+import panels.PanelRendering;
+
 import java.io.File;
 import java.util.function.Consumer;
 
@@ -41,6 +46,22 @@ public class Application implements Consumer<Event> {
      */
     private final Label label3;
     /**
+     * панель легенды
+     */
+    private final PanelHelp panelHelp;
+    /**
+     * панель курсора мыши
+     */
+    private final PanelControl panelControl;
+    /**
+     * панель рисования
+     */
+    private final PanelRendering panelRendering;
+    /**
+     * панель событий
+     */
+    private final PanelLog panelLog;
+    /**
      * радиус скругления элементов
      */
     public static final int C_RAD_IN_PX = 4;
@@ -64,7 +85,27 @@ public class Application implements Consumer<Event> {
                 4, 4, 2, 0, 1, 1, "Это тоже заголовок", true, true);
 
         // задаём обработчиком событий текущий объект
-        window.setEventListener(this);
+        window.setEventListener(this); // создаём панель рисования
+        panelRendering = new PanelRendering(
+                window, true, PANEL_BACKGROUND_COLOR, PANEL_PADDING, 5, 3, 0, 0,
+                3, 2
+        );
+        // создаём панель управления
+        panelControl = new PanelControl(
+                window, true, PANEL_BACKGROUND_COLOR, PANEL_PADDING, 5, 3, 3, 0,
+                2, 2
+        );
+        // создаём панель лога
+        panelLog = new PanelLog(
+                window, true, PANEL_BACKGROUND_COLOR, PANEL_PADDING, 5, 3, 0, 2,
+                3, 1
+        );
+        // создаём панель помощи
+        panelHelp = new PanelHelp(
+                window, true, PANEL_BACKGROUND_COLOR, PANEL_PADDING, 5, 3, 3, 2,
+                2, 1
+        );
+
         // создаём первый заголовок
         window.setTitle("Java 2D");
         // задаём размер окна
@@ -132,9 +173,11 @@ public class Application implements Consumer<Event> {
         canvas.save();
         // очищаем канвас
         canvas.clear(APP_BACKGROUND_COLOR);
-        // рисуем заголовок
-        label.paint(canvas, windowCS);
-        // восстанавливаем состояние канваса
+        // рисуем панели
+        panelRendering.paint(canvas, windowCS);
+        panelControl.paint(canvas, windowCS);
+        panelLog.paint(canvas, windowCS);
+        panelHelp.paint(canvas, windowCS);
         canvas.restore();
     }
 
