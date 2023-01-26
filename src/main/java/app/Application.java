@@ -1,5 +1,6 @@
 package app;
 
+import controls.InputFactory;
 import controls.Label;
 import io.github.humbleui.jwm.*;
 import io.github.humbleui.jwm.skija.EventFrameSkija;
@@ -133,6 +134,7 @@ public class Application implements Consumer<Event> {
 
         // создаём первый заголовок
         window.setTitle("Java 2D");
+
         // задаём размер окна
         window.setWindowSize(900, 900);
         // задаём его положение
@@ -218,6 +220,8 @@ public class Application implements Consumer<Event> {
                             return;
 
                         }
+                        case TAB -> InputFactory.nextTab();
+
                     }
             }
         }
