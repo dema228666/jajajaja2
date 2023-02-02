@@ -27,15 +27,20 @@ public class PanelControl extends GridPanel {
      * Заголовки
      */
     public List<Label> labels;
+
     /**
      * Поля ввода
      */
     public List<Input> inputs;
+
     /**
      * Кнопки
      */
     public List<Button> buttons;
-
+    /**
+     * кнопка решения
+     */
+    private final Button solve;
     /**
      * Панель управления
      *
@@ -60,6 +65,7 @@ public class PanelControl extends GridPanel {
         inputs = new ArrayList<>();
         labels = new ArrayList<>();
         buttons = new ArrayList<>();
+
 // случайное добавление
         Label cntLabel = new Label(window, false, backgroundColor, PANEL_PADDING,
                 6, 7, 0, 4, 1, 1, "Кол-во", true, true);
@@ -82,6 +88,39 @@ public class PanelControl extends GridPanel {
                 PanelRendering.task.addRandomPoints(cntField.intValue());
         });
         buttons.add(addPoints);
+// управление
+        Button load = new Button(
+                window, false, backgroundColor, PANEL_PADDING,
+                6, 7, 0, 5, 3, 1, "Загрузить",
+                true, true);
+        load.setOnClick(() -> {
+            PanelRendering.load();
+            cancelTask();
+        });
+        buttons.add(load);
+
+        Button save = new Button(
+                window, false, backgroundColor, PANEL_PADDING,
+                6, 7, 3, 5, 3, 1, "Сохранить",
+                true, true);
+        save.setOnClick(PanelRendering::save);
+        buttons.add(save);
+
+        Button clear = new Button(
+                window, false, backgroundColor, PANEL_PADDING,
+                6, 7, 0, 6, 3, 1, "Очистить",
+                true, true);
+        clear.setOnClick(() -> PanelRendering.task.clear());
+        buttons.add(clear);
+
+        solve = new Button(
+                window, false, backgroundColor, PANEL_PADDING,
+                6, 7, 3, 6, 3, 1, "Решить",
+                true, true);
+        solve.setOnClick(() -> {
+            PanelRendering.task.solve();
+        });
+        buttons.add(solve);
         // задание
         task = new MultiLineLabel(
                 window, false, backgroundColor, PANEL_PADDING,
@@ -222,6 +261,16 @@ public class PanelControl extends GridPanel {
         // выводим поля ввода
         for (Label label : labels) {
             label.paint(canvas, windowCS);
+
         }
+
+        }
+    /**
+     * Сброс решения задачи
+     */
+    private void cancelTask() {
+        PanelRendering.task.cancel();
+        // Задаём новый текст кнопке решения
+        solve.text = "Решить";
     }
 }

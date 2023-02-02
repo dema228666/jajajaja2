@@ -31,9 +31,28 @@ public class Task {
      */
     private final CoordinateSystem2d ownCS;
     /**
+     * Очистить задачу
+     */
+    public void clear() {
+        points.clear();
+    }
+
+    /**
      * Список точек
      */
     private final ArrayList<Point> points;
+    /**
+     * Решить задачу
+     */
+    public void solve() {
+        PanelLog.warning("Вызван метод solve()\n Пока что решения нет");
+    }
+    /**
+     * Отмена решения задачи
+     */
+    public void cancel() {
+
+    }
     /**
      * Размер точки
      */
