@@ -1,5 +1,8 @@
 package app;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import misc.Misc;
 import misc.Vector2d;
 
@@ -31,30 +34,43 @@ public class Point {
      * Координаты точки
      */
     public final Vector2d pos;
-
-    /**
-     * Конструктор точки
-     *
-     * @param pos     положение точки
-     * @param setType множество, которому она принадлежит
-     */
-    public Point(Vector2d pos, PointSet setType) {
-        this.pos = pos;
-        this.pointSet = setType;
-    }
-
-
     /**
      * Получить цвет точки по её множеству
      *
      * @return цвет точки
      */
+    @JsonIgnore
     public int getColor() {
         return switch (pointSet) {
             case FIRST_SET -> Misc.getColor(0xCC, 0x00, 0x00, 0xFF);
             case SECOND_SET -> Misc.getColor(0xCC, 0x00, 0xFF, 0x0);
         };
     }
+    /**
+     * Получить название множества
+     *
+     * @return название множества
+     */
+    @JsonIgnore
+    public String getSetName() {
+        return switch (pointSet) {
+            case FIRST_SET -> "Первое множество";
+            case SECOND_SET -> "Второе множество";
+        };
+    }
+    /**
+     * Конструктор точки
+     *
+     * @param pos     положение точки
+     * @param setType множество, которому она принадлежит
+     */
+    @JsonCreator
+    public Point(@JsonProperty("pos") Vector2d pos, @JsonProperty("setType") PointSet setType) {
+        this.pos = pos;
+        this.pointSet = setType;
+    }
+
+
 
     /**
      * Получить положение
@@ -76,17 +92,6 @@ public class Point {
     }
 
 
-    /**
-     * Получить название множества
-     *
-     * @return название множества
-     */
-    public String getSetName() {
-        return switch (pointSet) {
-            case FIRST_SET -> "Первое множество";
-            case SECOND_SET -> "Второе множество";
-        };
-    }
 
     /**
      * Строковое представление объекта

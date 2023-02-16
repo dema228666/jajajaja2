@@ -1,5 +1,8 @@
 package misc;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.github.humbleui.skija.RRect;
 import io.github.humbleui.skija.Rect;
 
@@ -21,6 +24,24 @@ public class CoordinateSystem2i {
      * размер СК
      */
     private final Vector2i size;
+    /**
+     * Получить случайные координаты внутри СК
+     *
+     * @return случайные координаты внутри СК
+     */
+    @JsonIgnore
+    public Vector2i getRandomCoords() {
+        return Vector2i.rand(min, max);
+    }
+    /**
+     * Получить размер СК
+     *
+     * @return размер СК
+     */
+    @JsonIgnore
+    public Vector2i getSize() {
+        return size;
+    }
 
     /**
      * Конструктор ограниченной двумерной целочисленной системы координат
@@ -98,14 +119,6 @@ public class CoordinateSystem2i {
         this(0, 0, sizeX, sizeY);
     }
 
-    /**
-     * Получить случайные координаты внутри СК
-     *
-     * @return случайные координаты внутри СК
-     */
-    public Vector2i getRandomCoords() {
-        return Vector2i.rand(min, max);
-    }
 
     /**
      * Возвращает относительное положение вектора в СК
@@ -145,7 +158,16 @@ public class CoordinateSystem2i {
     public boolean checkCoords(Vector2i coords) {
         return checkCoords(coords.x, coords.y);
     }
-
+    /**
+     * Конструктор ограниченной двумерной целочисленной системы координат
+     *
+     * @param min минимальные координаты
+     * @param max максимальные координаты
+     */
+    @JsonCreator
+    public CoordinateSystem2i(@JsonProperty("min") Vector2i min, @JsonProperty("max") Vector2i max) {
+        this(min.x, min.y, max.x - min.x, max.y - min.x);
+    }
     /**
      * Проверить, попадают ли координаты в границы СК
      *
@@ -175,14 +197,6 @@ public class CoordinateSystem2i {
         return min;
     }
 
-    /**
-     * Получить размер СК
-     *
-     * @return размер СК
-     */
-    public Vector2i getSize() {
-        return size;
-    }
 
     /**
      * Строковое представление объекта вида:
