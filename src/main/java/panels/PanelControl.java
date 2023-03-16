@@ -41,6 +41,7 @@ public class PanelControl extends GridPanel {
      * кнопка решения
      */
     private final Button solve;
+
     /**
      * Панель управления
      *
@@ -78,7 +79,7 @@ public class PanelControl extends GridPanel {
 
         Button addPoints = new Button(
                 window, false, backgroundColor, PANEL_PADDING,
-                6, 7, 3, 4, 3, 1, "Добавить\nслучайные точки",
+                6, 7, 3, 4, 3, 1, "Добавить\nтреугольник",
                 true, true);
         addPoints.setOnClick(() -> {
             // если числа введены верно
@@ -154,38 +155,21 @@ public class PanelControl extends GridPanel {
 
         Button addToFirstSet = new Button(
                 window, false, backgroundColor, PANEL_PADDING,
-                6, 7, 0, 3, 3, 1, "Добавить в первое\nмножество",
+                7, 7, 2, 3, 3, 1, "Добавить первую\nточку",
                 true, true);
         addToFirstSet.setOnClick(() -> {
-            // если числа введены верно
-            if (!xField.hasValidDoubleValue()) {
-                PanelLog.warning("X координата введена неверно");
-            } else if (!yField.hasValidDoubleValue())
-                PanelLog.warning("Y координата введена неверно");
-            else
-                PanelRendering.task.addPoint(
-                        new Vector2d(xField.doubleValue(), yField.doubleValue()), Point.PointSet.FIRST_SET
-                );
+            if (addToFirstSet.text.equals("Добавить первую\nточку")) {
+                addToFirstSet.text = "Добавить вторую\nточку";
+            } else if (addToFirstSet.text.equals("Добавить вторую\nточку")) {
+                addToFirstSet.text = "Добавить третью\nточку";
+            } else {
+                addToFirstSet.text = "Добавить первую\nточку";
+            }
+
         });
         buttons.add(addToFirstSet);
 
-        Button addToSecondSet = new Button(
-                window, false, backgroundColor, PANEL_PADDING,
-                6, 7, 3, 3, 3, 1, "Добавить во второе\nмножество",
-                true, true);
-        addToSecondSet.setOnClick(() -> {
-            // если числа введены верно
-            if (!xField.hasValidDoubleValue()) {
-                PanelLog.warning("X координата введена неверно");
-            } else if (!yField.hasValidDoubleValue())
-                PanelLog.warning("Y координата введена неверно");
-            else {
-                PanelRendering.task.addPoint(
-                        new Vector2d(xField.doubleValue(), yField.doubleValue()), Point.PointSet.SECOND_SET
-                );
-            }
-        });
-        buttons.add(addToSecondSet);
+
     }
 
     /**
@@ -207,7 +191,7 @@ public class PanelControl extends GridPanel {
                     button.checkOver(lastWindowCS.getRelativePos(new Vector2i(ee)));
             }
             // событие нажатия мыши
-        } else if (e instanceof EventMouseButton) {
+        } else if (e instanceof EventMouseButton ee) {
             if (!lastInside)
                 return;
 
@@ -215,7 +199,8 @@ public class PanelControl extends GridPanel {
 
             // пробуем кликнуть по всем кнопкам
             for (Button button : buttons) {
-                button.click(relPos);
+                if (ee.isPressed())
+                    button.click(relPos);
             }
 
             // перебираем поля ввода
@@ -274,7 +259,8 @@ public class PanelControl extends GridPanel {
 
         }
 
-        }
+    }
+
     /**
      * Сброс решения задачи
      */
