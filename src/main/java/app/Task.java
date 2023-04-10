@@ -148,6 +148,8 @@ public class Task {
         this.triangles = triangles;
     }
 
+    int addPos = 0;
+
     /**
      * Клик мыши по пространству задачи
      *
@@ -158,11 +160,14 @@ public class Task {
         if (lastWindowCS == null) return;
         // получаем положение на экране
         Vector2d taskPos = ownCS.getCoords(pos, lastWindowCS);
-        PanelLog.info(taskPos.toString());
-        // ToDo: написать добавление треугольника по клику мышью по рабочей области
-
-
+        addPoint(taskPos, addPos);
+        addPos++;
+        if (addPos > 2)
+            addPos = 0;
     }
+
+    Vector2d[] ps = new Vector2d[3];
+
 
     /**
      * обавление через панель управления
@@ -171,8 +176,13 @@ public class Task {
      * @param num номер точки
      */
     public void addPoint(Vector2d pos, int num) {
+        if (num < 2)
+            ps[num] = pos;
+        else
+            triangles.add(new Triangle(ps[0], ps[1], pos));
+
         PanelLog.info(pos.toString() + " " + num);
-        // ToDo: написать добавление треугольника по клику мышью по кнопке
+        // todo: написать добавление треугольника по клику мышью по кнопке
 
 
     }
@@ -212,13 +222,10 @@ public class Task {
         lastWindowCS = windowCS;
 
         canvas.save();
-        // создаём перо
-        try (var paint = new Paint()) {
             for (Triangle t : triangles) {
-                paint.setColor(t.getColor());
-                t.paint(canvas, windowCS);
+                t.paint(canvas, windowCS, ownCS);
             }
-        }
+
         canvas.restore();
     }
 

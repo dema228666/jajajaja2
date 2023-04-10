@@ -1,9 +1,8 @@
 package app;
 
 import io.github.humbleui.skija.Canvas;
-import misc.CoordinateSystem2i;
-import misc.Misc;
-import misc.Vector2d;
+import io.github.humbleui.skija.Paint;
+import misc.*;
 
 import java.util.Objects;
 
@@ -70,8 +69,19 @@ public class Triangle {
     }
 
 
-    public void paint(Canvas canvas, CoordinateSystem2i windowCS) {
-        // тест
+    public void paint(Canvas canvas, CoordinateSystem2i windowCS, CoordinateSystem2d ownCS) {
+        // создаём перо
+        try (Paint p = new Paint()) {
+            p.setColor(getColor());
+            // вершины треугольника
+            Vector2i pointA = windowCS.getCoords(posA, ownCS);
+            Vector2i pointB = windowCS.getCoords(posB, ownCS);
+            Vector2i pointC = windowCS.getCoords(posC, ownCS);
+            // рисуем его стороны
+            canvas.drawLine(pointA.x, pointA.y, pointB.x, pointB.y, p);
+            canvas.drawLine(pointB.x, pointB.y, pointC.x, pointC.y, p);
+            canvas.drawLine(pointC.x, pointC.y, pointA.x, pointA.y, p);
+        }
     }
 
     /**
@@ -80,8 +90,9 @@ public class Triangle {
      * @return цвет точки
      */
     public int getColor() {
-        return Misc.getColor(0xCC, 0x00, 0x00, 0xFF);
+        return Misc.getColor(0xCC, 0xFF, 0x00, 0xFF);
     }
+
 
     /**
      * Получить положение A
