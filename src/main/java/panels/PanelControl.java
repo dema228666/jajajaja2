@@ -1,6 +1,5 @@
 package panels;
 
-import app.Point;
 import app.Task;
 import controls.*;
 import io.github.humbleui.jwm.*;
@@ -79,14 +78,14 @@ public class PanelControl extends GridPanel {
 
         Button addPoints = new Button(
                 window, false, backgroundColor, PANEL_PADDING,
-                6, 7, 3, 4, 3, 1, "Добавить\nтреугольник",
+                6, 7, 3, 4, 3, 1, "Добавить\nслучайные треугольники",
                 true, true);
         addPoints.setOnClick(() -> {
             // если числа введены верно
             if (!cntField.hasValidIntValue()) {
                 PanelLog.warning("кол-во точек указано неверно");
             } else
-                PanelRendering.task.addRandomPoints(cntField.intValue());
+                PanelRendering.task.addRandomTriangles(cntField.intValue());
         });
         buttons.add(addPoints);
 // управление
@@ -121,9 +120,7 @@ public class PanelControl extends GridPanel {
         solve.setOnClick(() -> {
             if (!PanelRendering.task.isSolved()) {
                 PanelRendering.task.solve();
-                String s = "Задача решена\n" +
-                        "Пересечений: " + PanelRendering.task.getCrossed().size() / 2 + "\n" +
-                        "Отдельных точек: " + PanelRendering.task.getSingle().size();
+                String s = "Задача решена\n";
                 PanelLog.success(s);
                 solve.text = "Сбросить";
             } else {
@@ -157,13 +154,26 @@ public class PanelControl extends GridPanel {
                 window, false, backgroundColor, PANEL_PADDING,
                 7, 7, 2, 3, 3, 1, "Добавить первую\nточку",
                 true, true);
+
         addToFirstSet.setOnClick(() -> {
             if (addToFirstSet.text.equals("Добавить первую\nточку")) {
                 addToFirstSet.text = "Добавить вторую\nточку";
+                PanelRendering.task.addPoint(new Vector2d(
+                        Double.parseDouble(xField.getText()),
+                        Double.parseDouble(yField.getText())
+                ), 0);
             } else if (addToFirstSet.text.equals("Добавить вторую\nточку")) {
                 addToFirstSet.text = "Добавить третью\nточку";
+                PanelRendering.task.addPoint(new Vector2d(
+                        Double.parseDouble(xField.getText()),
+                        Double.parseDouble(yField.getText())
+                ), 1);
             } else {
                 addToFirstSet.text = "Добавить первую\nточку";
+                PanelRendering.task.addPoint(new Vector2d(
+                        Double.parseDouble(xField.getText()),
+                        Double.parseDouble(yField.getText())
+                ), 2);
             }
 
         });

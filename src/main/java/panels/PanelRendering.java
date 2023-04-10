@@ -1,6 +1,5 @@
 package panels;
 
-import app.Point;
 import app.Task;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.humbleui.jwm.Event;
@@ -14,7 +13,6 @@ import misc.Vector2d;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.concurrent.ThreadLocalRandom;
 
 
 /**
@@ -90,7 +88,7 @@ public class PanelRendering extends GridPanel {
         // создаём задачу без точек
         task = new Task(cs, new ArrayList<>());
         // добавляем в нё 10 случайных
-        task.addRandomPoints(10);
+        task.addRandomTriangles(10);
     }
 
     /**
