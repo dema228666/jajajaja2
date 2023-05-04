@@ -3,6 +3,8 @@ package app;
 import controls.InputFactory;
 import controls.Label;
 import io.github.humbleui.jwm.*;
+import io.github.humbleui.jwm.Event;
+import io.github.humbleui.jwm.Window;
 import io.github.humbleui.jwm.skija.EventFrameSkija;
 import io.github.humbleui.skija.Canvas;
 import io.github.humbleui.skija.Paint;
@@ -15,6 +17,7 @@ import panels.PanelHelp;
 import panels.PanelLog;
 import panels.PanelRendering;
 
+import java.awt.*;
 import java.io.File;
 import java.util.function.Consumer;
 

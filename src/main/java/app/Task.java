@@ -92,26 +92,6 @@ public class Task {
      * Решить задачу
      */
     public void solve() {
-//        // перебираем пары точек
-//        for (int i = 0; i < points.size(); i++) {
-//            for (int j = i + 1; j < points.size(); j++) {
-//                // сохраняем точки
-//                Point a = points.get(i);
-//                Point b = points.get(j);
-//                // если точки совпадают по положению
-//                if (a.pos.equals(b.pos) && !a.pointSet.equals(b.pointSet)) {
-//                    if (!crossed.contains(a)){
-//                        crossed.add(a);
-//                        crossed.add(b);
-//                    }
-//                }
-//            }
-//        }
-//
-//        /// добавляем вс
-//        for (Point point : points)
-//            if (!crossed.contains(point))
-//                single.add(point);
 
         solved = true;
     }
