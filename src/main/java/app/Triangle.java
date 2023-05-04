@@ -7,10 +7,9 @@ import misc.*;
 import java.util.Objects;
 
 /**
- * Класс точки
+ * Класс треугольника
  */
 public class Triangle {
-
     /**
      * Координаты точки A
      */

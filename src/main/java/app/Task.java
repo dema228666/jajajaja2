@@ -55,7 +55,7 @@ public class Task {
     }
 
     /**
-     * Список точек
+     * Список треугольников
      */
     @Getter
     private final ArrayList<Triangle> triangles;
